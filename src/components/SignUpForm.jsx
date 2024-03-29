@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 
-const SignUpForm = ({setToken}) => {
+const SignUpForm = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -10,6 +10,15 @@ const SignUpForm = ({setToken}) => {
   const URL = 'https://fsa-jwt-practice.herokuapp.com/signup';
 
   const handleSubmit = async (event) => {
+    if (username.length < 4) {
+      alert("Username must be at least 4 characters");
+      return;
+    }
+    if(!password.length){
+      alert("please enter a password");
+      return;
+    }
+
     event.preventDefault();
     try {
       const response = await fetch(URL, {
@@ -37,19 +46,19 @@ const SignUpForm = ({setToken}) => {
       {error ? (<h2>{error}</h2>) : null}
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">username</label>
-        <input type="text" name="username" value={username} onChange={(event) => {
-          setUsername(event.target.value);
-        }} />
-        <br />
-        <label htmlFor="password">password</label>
-        <input type="text" name="password" value={password} onChange={(event) => {
-          setPassword(event.target.value);
-        }} />
-        <br />
-        <button>submit</button>
+      <label htmlFor="username">username</label>
+      <input type="text" name="username" value={username} onChange={(event) => {
+        setUsername(event.target.value);
+      }} />
+      <br />
+      <label htmlFor="password">password</label>
+      <input type="text" name="password" value={password} onChange={(event) => {
+        setPassword(event.target.value);
+      }} />
+      <br />
+      <button>submit</button>
 
-      </form>
+    </form >
 
     </>
   )
